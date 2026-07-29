@@ -256,22 +256,31 @@
       <div class="num">2</div>
       <div><h3>鋼鐵飛輪（踩飛輪衝刺）</h3><p>飛輪衝刺比速度，燃燒熱血不放棄！</p></div>
     </div>
+    <div class="act-card c3">
+      <div class="num">3</div>
+      <div><h3>麥霸之王（卡拉OK挑戰）</h3><p>高歌一曲展實力，麥霸之王就是你！</p></div>
+    </div>
   </div>
 
   <div class="form-section">
     <form id="regForm">
       <div class="field">
-        <label>挑戰項目 <span class="req">*</span></label>
+        <label>挑戰項目 <span class="req">*</span>（可複選）</label>
         <div class="options">
           <label class="opt">
-            <input type="radio" name="event" value="登高勇士（爬樓梯登高賽）" required>
+            <input type="checkbox" name="event" value="登高勇士（爬樓梯登高賽）">
             <span class="name">登高勇士</span><span class="tag">爬樓梯登高賽</span>
           </label>
           <label class="opt">
-            <input type="radio" name="event" value="鋼鐵飛輪（踩飛輪衝刺）" required>
+            <input type="checkbox" name="event" value="鋼鐵飛輪（踩飛輪衝刺）">
             <span class="name">鋼鐵飛輪</span><span class="tag">踩飛輪衝刺</span>
           </label>
+          <label class="opt">
+            <input type="checkbox" name="event" value="麥霸之王（卡拉OK挑戰）">
+            <span class="name">麥霸之王</span><span class="tag">卡拉OK挑戰</span>
+          </label>
         </div>
+        <div class="hint" id="eventErr" style="display:none;color:#c0392b;">請至少勾選一項挑戰項目</div>
       </div>
 
       <div class="field">
@@ -321,12 +330,12 @@
    2. GOOGLE_FORM_ACTION：表單的送出網址（結尾為 /formResponse）
    3. ENTRY_IDS：對應「挑戰項目/ 戶號 / 姓名 / 連絡電話」四個欄位的 entry ID
    ============================================================ */
-const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSf8a-6v1tO5o9WTH2iaTjlOq3QNO4-fekMXzSm9qemCPFRlkA/formResponse";
+const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse";
 const ENTRY_IDS = {
-  event: "entry.1432417160",   // 挑戰項目
-  unit:  "entry.149326642",   // 戶號
-  name:  "entry.759030169",   // 姓名
-  phone: "entry.1148111063"    // 連絡電話
+  event: "entry.111111111",   // 挑戰項目
+  unit:  "entry.222222222",   // 戶號
+  name:  "entry.333333333",   // 姓名
+  phone: "entry.444444444"    // 連絡電話
 };
 
 const form = document.getElementById('regForm');
@@ -334,25 +343,34 @@ const submitBtn = document.getElementById('submitBtn');
 const overlay = document.getElementById('overlay');
 const errMsg = document.getElementById('errMsg');
 
+const eventErr = document.getElementById('eventErr');
+
 form.addEventListener('submit', function(e){
   e.preventDefault();
   errMsg.classList.remove('show');
+  eventErr.style.display = 'none';
 
-  const eventVal = form.event.value;
+  const eventVals = Array.from(form.querySelectorAll('input[name="event"]:checked')).map(el => el.value);
   const unitVal = form.unit.value.trim();
   const nameVal = form.name.value.trim();
   const phoneVal = form.phone.value.trim();
 
-  if(!eventVal || !unitVal || !nameVal || !phoneVal){
-    errMsg.classList.add('show');
-    return;
+  let ok = true;
+  if(eventVals.length === 0){
+    eventErr.style.display = 'block';
+    ok = false;
   }
+  if(!unitVal || !nameVal || !phoneVal){
+    errMsg.classList.add('show');
+    ok = false;
+  }
+  if(!ok) return;
 
   submitBtn.disabled = true;
   submitBtn.textContent = "送出中...";
 
   const fd = new FormData();
-  fd.append(ENTRY_IDS.event, eventVal);
+  eventVals.forEach(v => fd.append(ENTRY_IDS.event, v));
   fd.append(ENTRY_IDS.unit, unitVal);
   fd.append(ENTRY_IDS.name, nameVal);
   fd.append(ENTRY_IDS.phone, phoneVal);
