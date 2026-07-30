@@ -189,6 +189,43 @@
   .footer .committee{color:var(--gold);font-weight:900;font-size:16px;letter-spacing:1px;}
   .footer .slogan{margin-top:6px;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:1px;}
 
+  /* ===== RESULTS LIST ===== */
+  .results-section{margin:22px 20px 0;}
+  .results-toggle{
+    width:100%;padding:14px;border:2px dashed rgba(242,194,48,0.5);border-radius:10px;
+    background:transparent;color:var(--gold);font-weight:900;font-size:15px;
+    cursor:pointer;letter-spacing:1px;
+  }
+  .results-toggle:hover{background:rgba(242,194,48,0.08);}
+  .results-panel{
+    display:none;margin-top:12px;background:var(--cream);color:var(--navy-deep);
+    border-radius:12px;padding:16px 16px 18px;box-shadow:0 6px 0 rgba(0,0,0,0.3);
+  }
+  .results-panel.show{display:block;}
+  .results-head{
+    display:flex;justify-content:space-between;align-items:center;
+    font-weight:900;font-size:14px;margin-bottom:12px;color:var(--navy-deep);
+  }
+  .results-refresh{
+    border:none;background:var(--navy);color:var(--gold);width:30px;height:30px;
+    border-radius:50%;cursor:pointer;font-size:16px;
+  }
+  .results-loading,.results-empty,.results-error{
+    text-align:center;font-size:13px;color:#888;padding:16px 0;
+  }
+  .results-error{color:var(--red);}
+  .results-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;}
+  .r-item{
+    display:flex;align-items:center;gap:10px;
+    background:#fff;border:2px solid #ddd0ac;border-radius:8px;padding:9px 12px;font-size:13px;
+  }
+  .r-item .r-name{font-weight:900;min-width:56px;}
+  .r-item .r-unit{color:#666;font-size:12px;min-width:60px;}
+  .r-item .r-event{flex:1;font-size:12px;color:var(--navy-deep);}
+  .r-item .r-event span{display:inline-block;background:rgba(192,57,43,0.12);color:var(--red);border-radius:5px;padding:2px 6px;margin:2px 2px 0 0;font-size:11px;font-weight:700;}
+  .r-item .r-phone{font-size:11px;color:#999;white-space:nowrap;}
+  .results-count{font-size:11px;color:#999;font-weight:700;}
+
   /* ===== SUCCESS OVERLAY ===== */
   .overlay{
     position:fixed;inset:0;background:rgba(8,18,40,0.92);
@@ -296,6 +333,19 @@
     </form>
   </div>
 
+  <div class="results-section">
+    <button class="results-toggle" id="resultsToggle">📋 查看報名結果</button>
+    <div class="results-panel" id="resultsPanel">
+      <div class="results-head">
+        <span>目前報名名單</span>
+        <button class="results-refresh" id="resultsRefresh" title="重新整理">⟳</button>
+      </div>
+      <div id="resultsBody">
+        <div class="results-loading" id="resultsLoading">載入中...</div>
+      </div>
+    </div>
+  </div>
+
   <div class="footer">
     <div class="committee">太陽帝國管理委員會 邀請您參與！</div>
     <div class="slogan">一起運動・一起歡樂・一起創造美好回憶！</div>
@@ -332,6 +382,9 @@ const ENTRY_IDS = {
   name:  "entry.759030169",  // 姓名
   phone: "entry.1148111063"  // 連絡電話
 };
+
+// 報名回覆試算表（發布為 CSV）的公開連結
+const RESULTS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPsEYUK4nTVdCBTSME3uRm5EhdgbTGaq2MxepYTwd0xrtbf3uBCHDlHGhRSXyOCaYT5XUjk3GClGbr/pub?gid=780372395&single=true&output=csv";
 
 const form = document.getElementById('regForm');
 const submitBtn = document.getElementById('submitBtn');
@@ -393,6 +446,119 @@ form.addEventListener('submit', function(e){
   };
   iframe.addEventListener('load', onLoad);
   hiddenForm.submit();
+});
+
+/* ============================================================
+   查看報名結果：讀取已發布為 CSV 的回覆試算表並渲染成清單
+   ============================================================ */
+const resultsToggle = document.getElementById('resultsToggle');
+const resultsPanel = document.getElementById('resultsPanel');
+const resultsBody = document.getElementById('resultsBody');
+const resultsRefresh = document.getElementById('resultsRefresh');
+
+let resultsLoaded = false;
+
+function parseCSV(text){
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for(let i = 0; i < text.length; i++){
+    const c = text[i], next = text[i+1];
+    if(inQuotes){
+      if(c === '"' && next === '"'){ field += '"'; i++; }
+      else if(c === '"'){ inQuotes = false; }
+      else { field += c; }
+    } else {
+      if(c === '"'){ inQuotes = true; }
+      else if(c === ','){ row.push(field); field = ''; }
+      else if(c === '\r'){ /* skip */ }
+      else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += c; }
+    }
+  }
+  if(field.length || row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r => r.length > 1 || (r[0] && r[0].trim() !== ''));
+}
+
+function findCol(headers, keyword){
+  return headers.findIndex(h => h.indexOf(keyword) !== -1);
+}
+
+function maskPhone(phone){
+  const digits = (phone || '').replace(/\D/g, '');
+  if(digits.length < 3) return phone || '';
+  return '***-***-' + digits.slice(-3);
+}
+
+function maskName(name){
+  const n = (name || '').trim();
+  if(n.length <= 1) return n;
+  if(n.length === 2) return n[0] + 'O';
+  return n[0] + 'O'.repeat(n.length - 2) + n[n.length - 1];
+}
+
+function renderResults(rows){
+  if(rows.length <= 1){
+    resultsBody.innerHTML = '<div class="results-empty">目前還沒有人報名，快來當第一位！</div>';
+    return;
+  }
+  const headers = rows[0];
+  const idxEvent = findCol(headers, '挑戰');
+  const idxUnit = findCol(headers, '戶號');
+  const idxName = findCol(headers, '姓名');
+  const idxPhone = findCol(headers, '電話');
+
+  const dataRows = rows.slice(1).filter(r => r.some(c => c && c.trim() !== ''));
+
+  let html = '<div class="results-count">共 ' + dataRows.length + ' 人報名</div><div class="results-list">';
+  dataRows.forEach(r => {
+    const eventsRaw = idxEvent >= 0 ? (r[idxEvent] || '') : '';
+    const events = eventsRaw.split(',').map(s => s.trim()).filter(Boolean);
+    const unit = idxUnit >= 0 ? (r[idxUnit] || '') : '';
+    const name = idxName >= 0 ? maskName(r[idxName]) : '';
+    const phone = idxPhone >= 0 ? maskPhone(r[idxPhone]) : '';
+
+    html += '<div class="r-item">'
+      + '<span class="r-name">' + escapeHtml(name) + '</span>'
+      + '<span class="r-unit">' + escapeHtml(unit) + '</span>'
+      + '<span class="r-event">' + events.map(ev => '<span>' + escapeHtml(ev) + '</span>').join('') + '</span>'
+      + '<span class="r-phone">' + escapeHtml(phone) + '</span>'
+      + '</div>';
+  });
+  html += '</div>';
+  resultsBody.innerHTML = html;
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function loadResults(){
+  resultsBody.innerHTML = '<div class="results-loading">載入中...</div>';
+  fetch(RESULTS_CSV_URL + (RESULTS_CSV_URL.indexOf('?') > -1 ? '&' : '?') + '_=' + Date.now())
+    .then(res => {
+      if(!res.ok) throw new Error('network');
+      return res.text();
+    })
+    .then(text => {
+      const rows = parseCSV(text);
+      renderResults(rows);
+    })
+    .catch(() => {
+      resultsBody.innerHTML = '<div class="results-error">載入失敗，請稍後再試一次</div>';
+    });
+}
+
+resultsToggle.addEventListener('click', function(){
+  resultsPanel.classList.toggle('show');
+  if(resultsPanel.classList.contains('show') && !resultsLoaded){
+    resultsLoaded = true;
+    loadResults();
+  }
+});
+
+resultsRefresh.addEventListener('click', function(e){
+  e.stopPropagation();
+  loadResults();
 });
 </script>
 
