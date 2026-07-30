@@ -256,6 +256,10 @@
       <div class="num">2</div>
       <div><h3>鋼鐵飛輪（踩飛輪衝刺）</h3><p>飛輪衝刺比速度，燃燒熱血不放棄！</p></div>
     </div>
+    <div class="act-card c3">
+      <div class="num">3</div>
+      <div><h3>麥霸之王（卡拉OK挑戰）</h3><p>高歌一曲展實力，麥霸之王就是你！</p></div>
+    </div>
   </div>
 
   <div class="form-section">
@@ -264,11 +268,11 @@
         <label>挑戰項目 <span class="req">*</span>（可複選）</label>
         <div class="options">
           <label class="opt">
-            <input type="checkbox" name="event" value="登高勇士（爬樓梯登高賽）">
+            <input type="checkbox" name="event" value="登高勇士">
             <span class="name">登高勇士</span><span class="tag">爬樓梯登高賽</span>
           </label>
           <label class="opt">
-            <input type="checkbox" name="event" value="鋼鐵飛輪（踩飛輪衝刺）">
+            <input type="checkbox" name="event" value="鋼鐵飛輪">
             <span class="name">鋼鐵飛輪</span><span class="tag">踩飛輪衝刺</span>
           </label>
         </div>
@@ -314,6 +318,9 @@
 <!-- 隱藏 iframe 用於背景送出 Google 表單，避免頁面跳轉 -->
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
+<!-- 實際送往 Google 表單的隱藏表單，由 JS 動態填入 entry 欄位後送出 -->
+<form id="hiddenGoogleForm" method="POST" target="hidden_iframe" style="display:none;"></form>
+
 <script>
 /* ============================================================
    請將下方三個設定值，換成您自己 Google 表單的實際資訊：
@@ -324,14 +331,11 @@
    ============================================================ */
 const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSf8a-6v1tO5o9WTH2iaTjlOq3QNO4-fekMXzSm9qemCPFRlkA/formResponse";
 const ENTRY_IDS = {
-  event: "entry.1432417160",   // 挑戰項目
-  unit:  "entry.149326642",   // 戶號
-  name:  "entry.759030169",   // 姓名
-  phone: "entry.1148111063"    // 連絡電話
+  event: "entry.1432417160", // 挑戰項目
+  unit:  "entry.149326642",  // 戶號
+  name:  "entry.759030169",  // 姓名
+  phone: "entry.1148111063"  // 連絡電話
 };
-
-
-
 
 const form = document.getElementById('regForm');
 const submitBtn = document.getElementById('submitBtn');
@@ -364,13 +368,11 @@ form.addEventListener('submit', function(e){
   submitBtn.disabled = true;
   submitBtn.textContent = "送出中...";
 
-  // 改用「實體隱藏表單 + iframe」送出，行為與瀏覽器原生送出表單一致，
+  // 使用「實體隱藏表單 + iframe」送出，行為與瀏覽器原生送出表單一致，
   // 可正確處理複選核取方塊（同一 entry ID 傳送多筆值）。
-  const hiddenForm = document.createElement('form');
+  const hiddenForm = document.getElementById('hiddenGoogleForm');
+  hiddenForm.innerHTML = "";
   hiddenForm.action = GOOGLE_FORM_ACTION;
-  hiddenForm.method = 'POST';
-  hiddenForm.target = 'hidden_iframe';
-  hiddenForm.style.display = 'none';
 
   function addHiddenInput(name, value){
     const input = document.createElement('input');
@@ -385,12 +387,9 @@ form.addEventListener('submit', function(e){
   addHiddenInput(ENTRY_IDS.name, nameVal);
   addHiddenInput(ENTRY_IDS.phone, phoneVal);
 
-  document.body.appendChild(hiddenForm);
-
   const iframe = document.getElementById('hidden_iframe');
   const onLoad = function(){
     iframe.removeEventListener('load', onLoad);
-    hiddenForm.remove();
     overlay.classList.add('show');
     submitBtn.disabled = false;
     submitBtn.textContent = "我要報名 GO！";
