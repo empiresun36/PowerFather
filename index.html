@@ -491,9 +491,9 @@ function maskPhone(phone){
 
 function maskName(name){
   const n = (name || '').trim();
-  if(n.length <= 1) return n;
-  if(n.length === 2) return n[0] + 'O';
-  return n[0] + 'O'.repeat(n.length - 2) + n[n.length - 1];
+  if(n.length === 0) return n;
+  if(n.length <= 2) return 'O'.repeat(n.length);
+  return 'O'.repeat(2) + n.slice(2);
 }
 
 function renderResults(rows){
