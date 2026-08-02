@@ -3,564 +3,383 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>硬漢老爸 POWER 挑戰日｜太陽帝國社區</title>
+<title>歡樂老爸同樂日｜線上報名</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0c1c3d;
-    --navy-deep:#081228;
-    --gold:#f2c230;
-    --red:#c0392b;
-    --cream:#f4ecda;
-    --green:#2f7a4f;
-    --ink:#111;
+    --cream:#FFF8EA;
+    --sun:#F6A81C;
+    --sky:#4FA6D9;
+    --leaf:#5CB86B;
+    --berry:#F0668A;
+    --grape:#9B7BD4;
+    --ink:#3A2E1F;
+    --paper:#FFFFFF;
+    --line:#F0E3C9;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
-    font-family:'Noto Sans TC',sans-serif;
     background:
-      radial-gradient(circle at 20% 10%, rgba(242,194,48,0.12), transparent 40%),
-      radial-gradient(circle at 90% 80%, rgba(192,57,43,0.15), transparent 40%),
-      var(--navy);
-    color:var(--cream);
-    background-attachment:fixed;
+      radial-gradient(circle at 90% -10%, #FFE9B8 0%, transparent 45%),
+      radial-gradient(circle at -10% 20%, #DCEFFA 0%, transparent 40%),
+      var(--cream);
+    font-family:'Noto Sans TC', sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
   }
-  .halftone{
-    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
-    background-size: 10px 10px;
-  }
-  .wrap{max-width:640px;margin:0 auto;padding:0 0 60px;}
-
-  /* ===== HERO ===== */
-  .hero{
-    position:relative;
-    padding:36px 24px 30px;
-    text-align:center;
+  .flags{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    padding-top:14px;
     overflow:hidden;
-    border-bottom:6px solid var(--gold);
   }
-  .brand{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    font-size:13px;letter-spacing:4px;color:var(--gold);margin-bottom:14px;
+  .flags span{
+    width:0; height:0;
+    border-left:11px solid transparent;
+    border-right:11px solid transparent;
+    border-top:22px solid var(--c);
+    border-radius:0 0 3px 3px;
+    transform:translateY(-4px) rotate(0deg);
   }
-  .brand .dot{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #fff6d0, var(--gold) 60%, #a5780f);}
-  h1.title{
-    font-family:'Bangers','Noto Sans TC',sans-serif;
-    font-size:56px;
-    line-height:1.05;
-    margin:0 0 6px;
-    color:var(--gold);
-    -webkit-text-stroke:2px var(--navy-deep);
-    text-shadow:4px 4px 0 var(--red), 4px 4px 0 var(--red);
-    letter-spacing:2px;
-  }
-  .sub-cn{
-    font-family:'Noto Sans TC',sans-serif;
-    font-weight:900;font-size:30px;color:#fff;
-    margin:0 0 14px;
-    text-shadow:2px 2px 0 var(--red);
-  }
-  .tagline{
-    display:inline-block;background:var(--red);color:#fff;font-weight:700;
-    padding:6px 18px;border-radius:3px;font-size:14px;letter-spacing:1px;
-    transform:rotate(-1deg);
-    box-shadow:0 3px 0 rgba(0,0,0,0.3);
-  }
-  .badge-date{
-    margin:22px auto 0;
-    max-width:400px;
-    background:var(--cream);
-    color:var(--navy-deep);
-    border-radius:10px;
-    padding:14px 20px;
-    box-shadow:0 6px 0 rgba(0,0,0,0.35);
-    display:flex;align-items:center;justify-content:center;gap:14px;
-  }
-  .badge-date .label{font-weight:700;font-size:14px;color:#555;}
-  .badge-date .num{font-family:'Bangers';font-size:38px;color:var(--red);letter-spacing:1px;}
-  .badge-date .time{font-weight:900;font-size:15px;background:var(--navy);color:var(--gold);padding:4px 10px;border-radius:6px;}
-
-  /* ===== INFO BAR ===== */
-  .info-bar{
-    margin:24px 20px 0;
-    background:var(--cream);
-    color:var(--navy-deep);
-    border-radius:10px;
-    padding:18px 20px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-    box-shadow:0 5px 0 rgba(0,0,0,0.3);
-    font-size:13px;
-  }
-  .info-bar .item b{display:block;font-size:14px;margin-bottom:2px;}
-  .info-bar .item{border-left:4px solid var(--red);padding-left:10px;}
-  .info-bar .item:nth-child(2){border-left-color:var(--navy);}
-
-  /* ===== SECTION TITLE ===== */
-  .section-title{
-    text-align:center;margin:38px 0 18px;
-    font-family:'Bangers';font-size:28px;color:var(--gold);
-    letter-spacing:2px;
-  }
-  .section-title::before,.section-title::after{content:'★';color:var(--gold);margin:0 10px;font-size:16px;}
-
-  /* ===== ACTIVITY CARDS ===== */
-  .activities{padding:0 20px;display:flex;flex-direction:column;gap:14px;}
-  .act-card{
-    display:flex;align-items:center;gap:14px;
-    background:var(--navy-deep);
-    border:2px solid rgba(255,255,255,0.1);
-    border-radius:10px;padding:14px;
-  }
-  .act-card .num{
-    font-family:'Bangers';font-size:30px;
-    width:44px;height:44px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-    color:var(--navy-deep);
-  }
-  .act-card.c1 .num{background:#4a7fd6;}
-  .act-card.c2 .num{background:var(--red);}
-  .act-card.c3 .num{background:var(--green);}
-  .act-card h3{margin:0 0 2px;font-size:16px;color:#fff;}
-  .act-card p{margin:0;font-size:12px;color:rgba(255,255,255,0.6);}
-
-  /* ===== FORM ===== */
-  .form-section{margin:40px 20px 0;}
-  form{
-    background:var(--cream);
-    color:var(--navy-deep);
-    border-radius:14px;
-    padding:26px 22px;
-    box-shadow:0 8px 0 rgba(0,0,0,0.35);
+  .hero{
+    max-width:720px;
+    margin:0 auto;
+    padding:6px 24px 28px;
+    text-align:center;
     position:relative;
   }
-  form::before{
-    content:'報名表';
-    position:absolute;top:-16px;left:20px;
-    background:var(--red);color:#fff;
-    font-weight:900;font-size:14px;padding:5px 14px;border-radius:6px;
-    box-shadow:0 3px 0 rgba(0,0,0,0.3);
+  .eyebrow{
+    font-family:'Baloo 2', sans-serif;
+    letter-spacing:.14em;
+    font-weight:700;
+    color:#B5741A;
+    font-size:13px;
+    margin-bottom:4px;
+  }
+  .title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(38px,9vw,58px);
+    line-height:1.06;
+    margin:2px 0 6px;
+  }
+  .title .t1{color:var(--sky);}
+  .title .t2{color:var(--sun);}
+  .title .t3{color:var(--leaf);}
+  .title2{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(30px,7vw,44px);
+  }
+  .title2 .t4{color:var(--berry);}
+  .title2 .t5{color:var(--grape);}
+  .tagline{
+    display:inline-block;
+    margin-top:12px;
+    background:#FFE39A;
+    color:#8A5A0D;
+    font-weight:700;
+    font-size:14px;
+    padding:8px 20px;
+    border-radius:999px;
+    box-shadow:0 3px 0 #E8C56B;
+  }
+
+  .infobar{
+    max-width:640px;
+    margin:22px auto 0;
+    background:var(--paper);
+    border-radius:20px;
+    padding:6px 22px;
+    box-shadow:0 10px 30px -14px rgba(120,90,30,.25);
+  }
+  .info-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px dashed var(--line);
+    text-align:left;
+  }
+  .info-row:last-child{border-bottom:none;}
+  .info-dot{
+    flex:0 0 34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:16px; font-weight:800;
+  }
+  .info-row:nth-child(1) .info-dot{background:var(--berry);}
+  .info-row:nth-child(2) .info-dot{background:var(--sun);}
+  .info-row:nth-child(3) .info-dot{background:var(--sky);}
+  .info-text b{font-size:15px;}
+  .info-text .sub{color:#8A7A5E; font-size:13px; margin-top:2px;}
+
+  .quests{
+    max-width:900px;
+    margin:36px auto 0;
+    padding:0 20px;
+  }
+  .quests h2{
+    text-align:center;
+    font-family:'Baloo 2', sans-serif;
+    font-size:22px;
+    color:var(--ink);
+    position:relative;
+    margin-bottom:22px;
+  }
+  .quests h2::before, .quests h2::after{
+    content:"❁";
+    color:var(--leaf);
+    font-size:14px;
+    margin:0 10px;
+    vertical-align:middle;
+  }
+  .quest-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+  @media(max-width:760px){ .quest-grid{grid-template-columns:repeat(2,1fr);} }
+  .quest{
+    background:var(--paper);
+    border-radius:16px;
+    padding:16px 14px;
+    text-align:center;
+    border:2px solid var(--line);
+  }
+  .quest .num{
+    display:inline-block;
+    font-family:'Baloo 2', sans-serif;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+    padding:3px 12px;
+    border-radius:999px;
+    margin-bottom:8px;
+  }
+  .quest:nth-child(1) .num{background:var(--leaf);}
+  .quest:nth-child(2) .num{background:var(--sky);}
+  .quest:nth-child(3) .num{background:var(--sun);}
+  .quest:nth-child(4) .num{background:var(--berry);}
+  .quest .name{font-weight:700; font-size:15px; margin-bottom:6px;}
+  .quest .meta{font-size:12px; color:#8A7A5E; line-height:1.6;}
+
+  .treat{
+    max-width:640px;
+    margin:26px auto 0;
+    text-align:center;
+    background:#FFF1D6;
+    border-radius:16px;
+    padding:14px 20px;
+    font-size:13.5px;
+    color:#8A5A0D;
+  }
+
+  .formwrap{
+    max-width:520px;
+    margin:40px auto 60px;
+    padding:0 20px;
+  }
+  .formcard{
+    background:var(--paper);
+    border-radius:24px;
+    padding:30px 26px 26px;
+    box-shadow:0 16px 40px -18px rgba(120,90,30,.3);
+    border:2px solid var(--line);
+  }
+  .formcard h2{
+    font-family:'Baloo 2', sans-serif;
+    text-align:center;
+    font-size:22px;
+    color:var(--grape);
+    margin-top:0;
   }
   .field{margin-bottom:18px;}
   .field label{
-    display:block;font-weight:900;font-size:14px;margin-bottom:8px;color:var(--navy-deep);
+    display:block;
+    font-weight:700;
+    font-size:14px;
+    margin-bottom:6px;
   }
-  .field .req{color:var(--red);}
-  .options{display:flex;flex-direction:column;gap:8px;}
-  .opt{
-    display:flex;align-items:center;gap:10px;
-    border:2px solid #ddd0ac;border-radius:8px;padding:10px 12px;
-    cursor:pointer;transition:.15s;background:#fff;
+  .field .hint{
+    font-weight:400;
+    color:#9C8A6B;
+    font-size:12px;
+    margin-left:4px;
   }
-  .opt:hover{border-color:var(--gold);}
-  .opt input{accent-color:var(--red);width:17px;height:17px;}
-  .opt span.name{font-weight:700;font-size:14px;}
-  .opt span.tag{font-size:11px;color:#888;margin-left:auto;}
-  input[type=text],input[type=tel]{
-    width:100%;padding:11px 12px;border:2px solid #ddd0ac;border-radius:8px;
-    font-size:15px;font-family:inherit;background:#fff;color:var(--navy-deep);
+  .field input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:12px;
+    border:2px solid var(--line);
+    font-size:15px;
+    font-family:inherit;
+    background:#FFFDF7;
+    transition:border-color .15s;
   }
-  input[type=text]:focus,input[type=tel]:focus{outline:none;border-color:var(--red);}
-  .hint{font-size:11px;color:#888;margin-top:5px;}
+  .field input:focus{
+    outline:none;
+    border-color:var(--sky);
+  }
+  .submit-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(180deg,#FFC24B,#F6A81C);
+    color:#6B4109;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:17px;
+    letter-spacing:.03em;
+    cursor:pointer;
+    box-shadow:0 5px 0 #C9820D;
+    margin-top:6px;
+    transition:transform .1s;
+  }
+  .submit-btn:active{transform:translateY(3px); box-shadow:0 2px 0 #C9820D;}
+  .status{
+    text-align:center;
+    font-size:14px;
+    font-weight:700;
+    margin-top:14px;
+    display:none;
+  }
+  .status.show{display:block;}
+  .status.ok{color:var(--leaf);}
 
-  button.submit{
-    width:100%;padding:16px;border:none;border-radius:10px;
-    background:var(--red);color:#fff;font-weight:900;font-size:18px;
-    letter-spacing:2px;cursor:pointer;
-    box-shadow:0 5px 0 #8e2a20;
-    transition:transform .08s;
-  }
-  button.submit:active{transform:translateY(4px);box-shadow:0 1px 0 #8e2a20;}
-  button.submit:disabled{opacity:0.6;cursor:not-allowed;}
-
-  .msg{display:none;text-align:center;margin-top:14px;font-weight:700;font-size:14px;}
-  .msg.show{display:block;}
-  .msg.ok{color:var(--green);}
-  .msg.err{color:var(--red);}
-
-  /* ===== FOOTER ===== */
-  .footer{
-    margin-top:36px;padding:22px 20px;text-align:center;
-    background:var(--navy-deep);
-  }
-  .footer .committee{color:var(--gold);font-weight:900;font-size:16px;letter-spacing:1px;}
-  .footer .slogan{margin-top:6px;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:1px;}
-
-  /* ===== RESULTS LIST ===== */
-  .results-section{margin:22px 20px 0;}
-  .results-toggle{
-    width:100%;padding:14px;border:2px dashed rgba(242,194,48,0.5);border-radius:10px;
-    background:transparent;color:var(--gold);font-weight:900;font-size:15px;
-    cursor:pointer;letter-spacing:1px;
-  }
-  .results-toggle:hover{background:rgba(242,194,48,0.08);}
-  .results-panel{
-    display:none;margin-top:12px;background:var(--cream);color:var(--navy-deep);
-    border-radius:12px;padding:16px 16px 18px;box-shadow:0 6px 0 rgba(0,0,0,0.3);
-  }
-  .results-panel.show{display:block;}
-  .results-head{
-    display:flex;justify-content:space-between;align-items:center;
-    font-weight:900;font-size:14px;margin-bottom:12px;color:var(--navy-deep);
-  }
-  .results-refresh{
-    border:none;background:var(--navy);color:var(--gold);width:30px;height:30px;
-    border-radius:50%;cursor:pointer;font-size:16px;
-  }
-  .results-loading,.results-empty,.results-error{
-    text-align:center;font-size:13px;color:#888;padding:16px 0;
-  }
-  .results-error{color:var(--red);}
-  .results-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;}
-  .r-item{
-    display:flex;align-items:center;gap:10px;
-    background:#fff;border:2px solid #ddd0ac;border-radius:8px;padding:9px 12px;font-size:13px;
-  }
-  .r-item .r-name{font-weight:900;min-width:56px;}
-  .r-item .r-unit{color:#666;font-size:12px;min-width:60px;}
-  .r-item .r-event{flex:1;font-size:12px;color:var(--navy-deep);}
-  .r-item .r-event span{display:inline-block;background:rgba(192,57,43,0.12);color:var(--red);border-radius:5px;padding:2px 6px;margin:2px 2px 0 0;font-size:11px;font-weight:700;}
-  .r-item .r-phone{font-size:11px;color:#999;white-space:nowrap;}
-  .results-count{font-size:11px;color:#999;font-weight:700;}
-
-  /* ===== SUCCESS OVERLAY ===== */
-  .overlay{
-    position:fixed;inset:0;background:rgba(8,18,40,0.92);
-    display:none;align-items:center;justify-content:center;z-index:50;padding:20px;
-  }
-  .overlay.show{display:flex;}
-  .overlay-card{
-    background:var(--cream);color:var(--navy-deep);border-radius:16px;
-    padding:34px 26px;text-align:center;max-width:340px;
-    box-shadow:0 10px 0 rgba(0,0,0,0.4);
-  }
-  .overlay-card .pow{
-    font-family:'Bangers';font-size:44px;color:var(--red);
-    -webkit-text-stroke:1.5px var(--navy-deep);margin-bottom:8px;
-  }
-  .overlay-card p{font-size:14px;margin:6px 0;}
-  .overlay-card button{
-    margin-top:16px;padding:10px 24px;border:none;border-radius:8px;
-    background:var(--navy);color:var(--gold);font-weight:700;cursor:pointer;
-  }
-
-  @media (max-width:420px){
-    h1.title{font-size:44px;}
-    .sub-cn{font-size:24px;}
-    .info-bar{grid-template-columns:1fr;}
+  footer{
+    text-align:center;
+    color:#B39C6E;
+    font-size:12.5px;
+    padding-bottom:30px;
   }
 </style>
 </head>
-<body class="halftone">
+<body>
 
-<div class="wrap">
-  <div class="hero">
-    <div class="brand"><span class="dot"></span>SUN EMPIRE 太陽帝國</div>
-    <h1 class="title">POWER</h1>
-    <p class="sub-cn">硬漢老爸 ★ 挑戰日</p>
-    <span class="tagline">挑戰自我・釋放力量・成就最強的爸！</span>
+<div class="flags">
+  <span style="--c:#F0668A"></span><span style="--c:#F6A81C"></span><span style="--c:#4FA6D9"></span>
+  <span style="--c:#5CB86B"></span><span style="--c:#9B7BD4"></span><span style="--c:#F0668A"></span>
+  <span style="--c:#F6A81C"></span><span style="--c:#4FA6D9"></span>
+</div>
 
-    <div class="badge-date">
-      <div>
-        <div class="label">活動日期</div>
-        <div class="num">8/9（日）</div>
-      </div>
-      <div class="time">下午 2:00 整</div>
+<div class="hero">
+  <div class="eyebrow">SUN EMPIRE 太陽帝國社區</div>
+  <div class="title"><span class="t1">歡</span><span class="t2">樂</span><span class="t3">老爸</span></div>
+  <div class="title2"><span class="t4">同樂</span><span class="t5">日</span></div>
+  <div class="tagline">感謝爸爸的陪伴，一起留下美好的回憶！</div>
+</div>
+
+<div class="infobar">
+  <div class="info-row">
+    <div class="info-dot">📅</div>
+    <div class="info-text"><b>活動日期：8/9（日）下午 2:00</b></div>
+  </div>
+  <div class="info-row">
+    <div class="info-dot">📍</div>
+    <div class="info-text"><b>活動地點：社區 3 樓公設（多功能活動空間）</b></div>
+  </div>
+  <div class="info-row">
+    <div class="info-dot">👨‍👩‍👧</div>
+    <div class="info-text"><b>報名資格：凡社區住戶均可報名</b><div class="sub">不分男女老少</div></div>
+  </div>
+</div>
+
+<div class="quests">
+  <h2>活動內容　四關卡</h2>
+  <div class="quest-grid">
+    <div class="quest">
+      <span class="num">關卡一</span>
+      <div class="name">登高勇士</div>
+      <div class="meta">1F 大廳樓梯<br>下午 2:10–2:30<br>任務：1 樓爬到 8 樓</div>
+    </div>
+    <div class="quest">
+      <span class="num">關卡二</span>
+      <div class="name">飛輪飆速王</div>
+      <div class="meta">3F 健身房飛輪教室<br>下午 2:30–2:50<br>任務：騎 10 分鐘</div>
+    </div>
+    <div class="quest">
+      <span class="num">關卡三</span>
+      <div class="name">健康苗條站</div>
+      <div class="meta">3F 大廳沙發區<br>下午 2:50–3:10<br>任務：體脂量測</div>
+    </div>
+    <div class="quest">
+      <span class="num">關卡四</span>
+      <div class="name">英雄爸爸帶動唱</div>
+      <div class="meta">3F 兒童遊戲室<br>下午 3:10–3:30<br>任務：親子音樂唱跳</div>
     </div>
   </div>
+</div>
 
-  <div class="info-bar">
-    <div class="item">
-      <b>📍 活動地點</b>
-      社區3樓公設（多功能活動空間）
-    </div>
-    <div class="item">
-      <b>👥 報名資格</b>
-      凡社區住戶均可報名（不分男女老少）
-    </div>
-  </div>
+<div class="treat">🧋 四關關卡完成後，請至 <b>3F 大廳</b>享用飲料點心。</div>
 
-  <div class="section-title">活動內容</div>
-  <div class="activities">
-    <div class="act-card c1">
-      <div class="num">1</div>
-      <div><h3>登高勇士（爬樓梯登高賽）</h3><p>挑戰體能極限，勇奪冠軍！</p></div>
-    </div>
-    <div class="act-card c2">
-      <div class="num">2</div>
-      <div><h3>鋼鐵飛輪（踩飛輪衝刺）</h3><p>飛輪衝刺比速度，燃燒熱血不放棄！</p></div>
-    </div>
-  </div>
+<div class="formwrap">
+  <div class="formcard">
+    <h2>線上報名</h2>
 
-  <div class="form-section">
-    <form id="regForm">
+    <!-- ⚠️ 請將下方 action 網址與 entry.xxxxx 欄位代碼，
+         換成你自己 Google 表單的正式送出網址與欄位 ID
+         （取得方式見本檔案最下方註解說明） -->
+    <form id="regForm"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSf_pTIEVBtAhQYbe5pLZl0134E7vo6n-T29hHHFIZ1hh8binw/formResponse"
+          method="POST" target="hidden_iframe">
+
       <div class="field">
-        <label>挑戰項目 <span class="req">*</span>（可複選）</label>
-        <div class="options">
-          <label class="opt">
-            <input type="checkbox" name="event" value="登高勇士">
-            <span class="name">登高勇士</span><span class="tag">爬樓梯登高賽</span>
-          </label>
-          <label class="opt">
-            <input type="checkbox" name="event" value="鋼鐵飛輪">
-            <span class="name">鋼鐵飛輪</span><span class="tag">踩飛輪衝刺</span>
-          </label>
-        </div>
-        <div class="hint" id="eventErr" style="display:none;color:#c0392b;">請至少勾選一項挑戰項目</div>
+        <label>戶號 <span class="hint">例如 B3-37F</span></label>
+        <input type="text" name="entry.307972738" placeholder="B3-37F" required>
       </div>
 
       <div class="field">
-        <label for="unit">戶號 <span class="req">*</span></label>
-        <input type="text" id="unit" name="unit" placeholder="例如：B2-23F" required>
+        <label>姓名</label>
+        <input type="text" name="entry.293635776" placeholder="請輸入姓名" required>
       </div>
 
       <div class="field">
-        <label for="name">姓名 <span class="req">*</span></label>
-        <input type="text" id="name" name="name" placeholder="請輸入報名者姓名" required>
+        <label>連絡電話</label>
+        <input type="tel" name="entry.902779697" placeholder="09xx-xxx-xxx" required>
       </div>
 
       <div class="field">
-        <label for="phone">連絡電話 <span class="req">*</span></label>
-        <input type="tel" id="phone" name="phone" placeholder="請輸入手機號碼" required>
-        <div class="hint">供活動當天聯繫使用</div>
+        <label>家庭成員人數 <span class="hint">含大人與小孩</span></label>
+        <input type="number" name="entry.1905905909" min="1" placeholder="例如 4" required>
       </div>
 
-      <button type="submit" class="submit" id="submitBtn">我要報名 GO！</button>
-      <div class="msg err" id="errMsg">請完整填寫所有欄位</div>
+      <button type="submit" class="submit-btn">送出報名</button>
+      <div id="status" class="status ok">🎉 報名成功，期待與您相見！</div>
     </form>
-  </div>
-
-  <div class="results-section">
-    <button class="results-toggle" id="resultsToggle">📋 查看報名結果</button>
-    <div class="results-panel" id="resultsPanel">
-      <div class="results-head">
-        <span>目前報名名單</span>
-        <button class="results-refresh" id="resultsRefresh" title="重新整理">⟳</button>
-      </div>
-      <div id="resultsBody">
-        <div class="results-loading" id="resultsLoading">載入中...</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="committee">太陽帝國管理委員會 邀請您參與！</div>
-    <div class="slogan">一起運動・一起歡樂・一起創造美好回憶！</div>
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
   </div>
 </div>
 
-<div class="overlay" id="overlay">
-  <div class="overlay-card">
-    <div class="pow">POW!</div>
-    <p><strong>報名成功！</strong></p>
-    <p>感謝您報名「硬漢老爸 POWER 挑戰日」，我們8/9(日) 下午2:00 社區3樓公設見！</p>
-    <button onclick="location.reload()">關閉</button>
-  </div>
-</div>
-
-<!-- 隱藏 iframe 用於背景送出 Google 表單，避免頁面跳轉 -->
-<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-<!-- 實際送往 Google 表單的隱藏表單，由 JS 動態填入 entry 欄位後送出 -->
-<form id="hiddenGoogleForm" method="POST" target="hidden_iframe" style="display:none;"></form>
+<footer>給爸爸一個快樂的午後時光 ♡</footer>
 
 <script>
-/* ============================================================
-   請將下方三個設定值，換成您自己 Google 表單的實際資訊：
-   1. 開啟您的 Google 表單 → 右上角「⋮」→ 取得預先填寫的連結
-      或直接檢視表單原始碼，尋找 formResponse 網址與 entry.xxxxxx 欄位
-   2. GOOGLE_FORM_ACTION：表單的送出網址（結尾為 /formResponse）
-   3. ENTRY_IDS：對應「挑戰項目/ 戶號 / 姓名 / 連絡電話」四個欄位的 entry ID
-   ============================================================ */
-const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSf8a-6v1tO5o9WTH2iaTjlOq3QNO4-fekMXzSm9qemCPFRlkA/formResponse";
-const ENTRY_IDS = {
-  event: "entry.1432417160", // 挑戰項目
-  unit:  "entry.149326642",  // 戶號
-  name:  "entry.759030169",  // 姓名
-  phone: "entry.1148111063"  // 連絡電話
-};
-
-// 報名回覆試算表（發布為 CSV）的公開連結
-const RESULTS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPsEYUK4nTVdCBTSME3uRm5EhdgbTGaq2MxepYTwd0xrtbf3uBCHDlHGhRSXyOCaYT5XUjk3GClGbr/pub?gid=780372395&single=true&output=csv";
-
-const form = document.getElementById('regForm');
-const submitBtn = document.getElementById('submitBtn');
-const overlay = document.getElementById('overlay');
-const errMsg = document.getElementById('errMsg');
-
-const eventErr = document.getElementById('eventErr');
-
-form.addEventListener('submit', function(e){
-  e.preventDefault();
-  errMsg.classList.remove('show');
-  eventErr.style.display = 'none';
-
-  const eventVals = Array.from(form.querySelectorAll('input[name="event"]:checked')).map(el => el.value);
-  const unitVal = form.unit.value.trim();
-  const nameVal = form.name.value.trim();
-  const phoneVal = form.phone.value.trim();
-
-  let ok = true;
-  if(eventVals.length === 0){
-    eventErr.style.display = 'block';
-    ok = false;
-  }
-  if(!unitVal || !nameVal || !phoneVal){
-    errMsg.classList.add('show');
-    ok = false;
-  }
-  if(!ok) return;
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "送出中...";
-
-  // 使用「實體隱藏表單 + iframe」送出，行為與瀏覽器原生送出表單一致，
-  // 可正確處理複選核取方塊（同一 entry ID 傳送多筆值）。
-  const hiddenForm = document.getElementById('hiddenGoogleForm');
-  hiddenForm.innerHTML = "";
-  hiddenForm.action = GOOGLE_FORM_ACTION;
-
-  function addHiddenInput(name, value){
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    hiddenForm.appendChild(input);
-  }
-
-  eventVals.forEach(v => addHiddenInput(ENTRY_IDS.event, v));
-  addHiddenInput(ENTRY_IDS.unit, unitVal);
-  addHiddenInput(ENTRY_IDS.name, nameVal);
-  addHiddenInput(ENTRY_IDS.phone, phoneVal);
-
-  const iframe = document.getElementById('hidden_iframe');
-  const onLoad = function(){
-    iframe.removeEventListener('load', onLoad);
-    overlay.classList.add('show');
-    submitBtn.disabled = false;
-    submitBtn.textContent = "我要報名 GO！";
-    form.reset();
-  };
-  iframe.addEventListener('load', onLoad);
-  hiddenForm.submit();
-});
-
-/* ============================================================
-   查看報名結果：讀取已發布為 CSV 的回覆試算表並渲染成清單
-   ============================================================ */
-const resultsToggle = document.getElementById('resultsToggle');
-const resultsPanel = document.getElementById('resultsPanel');
-const resultsBody = document.getElementById('resultsBody');
-const resultsRefresh = document.getElementById('resultsRefresh');
-
-let resultsLoaded = false;
-
-function parseCSV(text){
-  const rows = [];
-  let row = [], field = '', inQuotes = false;
-  for(let i = 0; i < text.length; i++){
-    const c = text[i], next = text[i+1];
-    if(inQuotes){
-      if(c === '"' && next === '"'){ field += '"'; i++; }
-      else if(c === '"'){ inQuotes = false; }
-      else { field += c; }
-    } else {
-      if(c === '"'){ inQuotes = true; }
-      else if(c === ','){ row.push(field); field = ''; }
-      else if(c === '\r'){ /* skip */ }
-      else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
-      else { field += c; }
-    }
-  }
-  if(field.length || row.length){ row.push(field); rows.push(row); }
-  return rows.filter(r => r.length > 1 || (r[0] && r[0].trim() !== ''));
-}
-
-function findCol(headers, keyword){
-  return headers.findIndex(h => h.indexOf(keyword) !== -1);
-}
-
-function maskPhone(phone){
-  const digits = (phone || '').replace(/\D/g, '');
-  if(digits.length < 3) return phone || '';
-  return '***-***-' + digits.slice(-3);
-}
-
-function maskName(name){
-  const n = (name || '').trim();
-  if(n.length === 0) return n;
-  if(n.length <= 2) return 'O'.repeat(n.length);
-  return 'O'.repeat(2) + n.slice(2);
-}
-
-function renderResults(rows){
-  if(rows.length <= 1){
-    resultsBody.innerHTML = '<div class="results-empty">目前還沒有人報名，快來當第一位！</div>';
-    return;
-  }
-  const headers = rows[0];
-  const idxEvent = findCol(headers, '挑戰');
-  const idxUnit = findCol(headers, '戶號');
-  const idxName = findCol(headers, '姓名');
-  const idxPhone = findCol(headers, '電話');
-
-  const dataRows = rows.slice(1).filter(r => r.some(c => c && c.trim() !== ''));
-
-  let html = '<div class="results-count">共 ' + dataRows.length + ' 人報名</div><div class="results-list">';
-  dataRows.forEach(r => {
-    const eventsRaw = idxEvent >= 0 ? (r[idxEvent] || '') : '';
-    const events = eventsRaw.split(',').map(s => s.trim()).filter(Boolean);
-    const unit = idxUnit >= 0 ? (r[idxUnit] || '') : '';
-    const name = idxName >= 0 ? maskName(r[idxName]) : '';
-    const phone = idxPhone >= 0 ? maskPhone(r[idxPhone]) : '';
-
-    html += '<div class="r-item">'
-      + '<span class="r-name">' + escapeHtml(name) + '</span>'
-      + '<span class="r-unit">' + escapeHtml(unit) + '</span>'
-      + '<span class="r-event">' + events.map(ev => '<span>' + escapeHtml(ev) + '</span>').join('') + '</span>'
-      + '<span class="r-phone">' + escapeHtml(phone) + '</span>'
-      + '</div>';
+  const form = document.getElementById('regForm');
+  const status = document.getElementById('status');
+  form.addEventListener('submit', function(){
+    setTimeout(function(){
+      status.classList.add('show');
+      form.reset();
+    }, 400);
   });
-  html += '</div>';
-  resultsBody.innerHTML = html;
-}
-
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function loadResults(){
-  resultsBody.innerHTML = '<div class="results-loading">載入中...</div>';
-  fetch(RESULTS_CSV_URL + (RESULTS_CSV_URL.indexOf('?') > -1 ? '&' : '?') + '_=' + Date.now())
-    .then(res => {
-      if(!res.ok) throw new Error('network');
-      return res.text();
-    })
-    .then(text => {
-      const rows = parseCSV(text);
-      renderResults(rows);
-    })
-    .catch(() => {
-      resultsBody.innerHTML = '<div class="results-error">載入失敗，請稍後再試一次</div>';
-    });
-}
-
-resultsToggle.addEventListener('click', function(){
-  resultsPanel.classList.toggle('show');
-  if(resultsPanel.classList.contains('show') && !resultsLoaded){
-    resultsLoaded = true;
-    loadResults();
-  }
-});
-
-resultsRefresh.addEventListener('click', function(e){
-  e.stopPropagation();
-  loadResults();
-});
 </script>
+
+<!--
+  設定說明（開發者用，不影響網頁顯示）：
+  1. 到 Google 表單建立「戶號、姓名、連絡電話、家庭成員人數」四個問題。
+  2. 點右上角「傳送」→ 取得表單網址，把網址中
+     .../forms/d/e/xxxxxxxxxxxxxxxx/viewform
+     改成
+     .../forms/d/e/xxxxxxxxxxxxxxxx/formResponse
+     貼到上面 <form action="..."> 裡。
+  3. 在瀏覽器打開表單，右鍵「檢查」，搜尋每個題目的 <input name="entry.xxxxxxxxx">，
+     依序填入上面四個欄位對應的 name 值（取代 entry.111111111 等預留碼）。
+  4. 存檔後即可上傳到你的網站或用 QR Code 分享。
+-->
 
 </body>
 </html>
