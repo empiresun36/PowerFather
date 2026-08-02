@@ -251,6 +251,97 @@
   .status.show{display:block;}
   .status.ok{color:var(--leaf);}
 
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(58,46,31,.45);
+    display:none;
+    align-items:center; justify-content:center;
+    z-index:999;
+    padding:20px;
+  }
+  .overlay.show{display:flex;}
+  .popup{
+    background:var(--paper);
+    border-radius:24px;
+    padding:36px 30px 30px;
+    text-align:center;
+    max-width:320px;
+    box-shadow:0 20px 50px -10px rgba(0,0,0,.35);
+    transform:scale(.7);
+    opacity:0;
+    animation:pop .35s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  @keyframes pop{ to{ transform:scale(1); opacity:1; } }
+  .popup .emoji{font-size:52px; margin-bottom:6px;}
+  .popup h3{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--leaf);
+    font-size:22px;
+    margin:0 0 8px;
+  }
+  .popup p{color:#8A7A5E; font-size:14px; margin:0 0 22px;}
+  .popup button{
+    border:none;
+    background:linear-gradient(180deg,#FFC24B,#F6A81C);
+    color:#6B4109;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:15px;
+    padding:10px 30px;
+    border-radius:999px;
+    box-shadow:0 4px 0 #C9820D;
+    cursor:pointer;
+  }
+
+  .listwrap{
+    max-width:520px;
+    margin:0 auto 50px;
+    padding:0 20px;
+  }
+  .listcard{
+    background:var(--paper);
+    border-radius:24px;
+    padding:26px 26px 22px;
+    box-shadow:0 16px 40px -18px rgba(120,90,30,.3);
+    border:2px solid var(--line);
+  }
+  .listcard h2{
+    font-family:'Baloo 2', sans-serif;
+    text-align:center;
+    font-size:20px;
+    color:var(--sky);
+    margin-top:0;
+    margin-bottom:4px;
+  }
+  .list-summary{
+    text-align:center;
+    font-size:13px;
+    color:#9C8A6B;
+    margin-bottom:16px;
+  }
+  .list-summary b{color:var(--berry); font-size:15px;}
+  .list-table{max-height:320px; overflow-y:auto;}
+  .list-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 60px;
+    gap:8px;
+    padding:10px 6px;
+    border-bottom:1px dashed var(--line);
+    font-size:14px;
+  }
+  .list-row.head{
+    font-weight:700;
+    color:#8A7A5E;
+    font-size:12px;
+  }
+  .list-row .n{text-align:right; color:var(--leaf); font-weight:700;}
+  .list-empty{
+    text-align:center;
+    color:#B39C6E;
+    font-size:13px;
+    padding:20px 0;
+  }
+
   footer{
     text-align:center;
     color:#B39C6E;
@@ -349,9 +440,25 @@
       </div>
 
       <button type="submit" class="submit-btn">送出報名</button>
-      <div id="status" class="status ok">🎉 報名成功，期待與您相見！</div>
     </form>
     <iframe name="hidden_iframe" style="display:none;"></iframe>
+  </div>
+</div>
+
+<div class="overlay" id="successOverlay">
+  <div class="popup">
+    <div class="emoji">🎉</div>
+    <h3>報名成功！</h3>
+    <p>期待與您相見，一起度過快樂的老爸同樂日～</p>
+    <button type="button" id="closePopup">好的</button>
+  </div>
+</div>
+
+<div class="listwrap">
+  <div class="listcard">
+    <h2>已報名住戶</h2>
+    <div class="list-summary" id="listSummary">載入中…</div>
+    <div class="list-table" id="listTable"></div>
   </div>
 </div>
 
@@ -359,13 +466,64 @@
 
 <script>
   const form = document.getElementById('regForm');
-  const status = document.getElementById('status');
+  const overlay = document.getElementById('successOverlay');
+  document.getElementById('closePopup').addEventListener('click', function(){
+    overlay.classList.remove('show');
+  });
   form.addEventListener('submit', function(){
     setTimeout(function(){
-      status.classList.add('show');
+      overlay.classList.add('show');
       form.reset();
+      // 送出後延遲重新讀取名單，等 Google 試算表寫入完成
+      setTimeout(loadList, 2500);
     }, 400);
   });
+
+  // ⚠️ 請填入你的 Google 試算表 ID 與工作表分頁名稱（見檔案最下方註解說明）
+  const SHEET_ID = 'YOUR_SHEET_ID';
+  const SHEET_NAME = '表單回應 1';
+
+  async function loadList(){
+    const summaryEl = document.getElementById('listSummary');
+    const tableEl = document.getElementById('listTable');
+    try{
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+      const res = await fetch(url);
+      const text = await res.text();
+      const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+      const rows = json.table.rows;
+
+      if(!rows || rows.length === 0){
+        tableEl.innerHTML = '<div class="list-empty">目前尚無報名資料</div>';
+        summaryEl.textContent = '尚無報名';
+        return;
+      }
+
+      // 欄位順序對應 Google 表單：時間戳記, 戶號, 姓名, 連絡電話, 家庭成員人數
+      let totalHouseholds = 0;
+      let totalPeople = 0;
+      let html = '<div class="list-row head"><div>戶號</div><div>姓名</div><div class="n">人數</div></div>';
+
+      rows.forEach(r => {
+        const c = r.c;
+        const unit = c[1] && c[1].v ? c[1].v : '';
+        const name = c[2] && c[2].v ? c[2].v : '';
+        const people = c[4] && c[4].v ? c[4].v : '';
+        if(!unit && !name) return;
+        totalHouseholds++;
+        totalPeople += Number(people) || 0;
+        html += `<div class="list-row"><div>${unit}</div><div>${name}</div><div class="n">${people}</div></div>`;
+      });
+
+      tableEl.innerHTML = html;
+      summaryEl.innerHTML = `已報名 <b>${totalHouseholds}</b> 戶，共 <b>${totalPeople}</b> 人`;
+    }catch(err){
+      summaryEl.textContent = '名單載入失敗，請確認試算表已設定為公開檢視';
+      tableEl.innerHTML = '';
+    }
+  }
+
+  loadList();
 </script>
 
 <!--
@@ -379,6 +537,13 @@
   3. 在瀏覽器打開表單，右鍵「檢查」，搜尋每個題目的 <input name="entry.xxxxxxxxx">，
      依序填入上面四個欄位對應的 name 值（取代 entry.111111111 等預留碼）。
   4. 存檔後即可上傳到你的網站或用 QR Code 分享。
+
+  5.（顯示報名名單用）到該表單對應的 Google 試算表：
+     a. 網址列會看到 .../spreadsheets/d/xxxxxxxxxxxxx/edit
+        中間那段 xxxxxxxxxxxxx 就是 SHEET_ID，填入下方 JS 的 SHEET_ID。
+     b. 分頁名稱預設是「表單回應 1」，若有改名請對應改 SHEET_NAME。
+     c. 右上角「共用」→ 改成「知道連結的使用者」可檢視，
+        名單才讀得到（電話不會顯示在名單上，僅供你後台留存）。
 -->
 
 </body>
