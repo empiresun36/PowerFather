@@ -454,6 +454,12 @@
   </div>
 </div>
 
+<div class="listwrap">
+  <div class="listcard">
+    <h2>已報名人數</h2>
+    <div class="list-summary" id="listSummary">載入中…</div>
+  </div>
+</div>
 
 <footer>給爸爸一個快樂的午後時光 ♡</footer>
 
@@ -472,6 +478,37 @@
     }, 400);
   });
 
+  // ⚠️ 請填入你的 Google 試算表 ID 與工作表分頁名稱（見檔案最下方註解說明）
+  const SHEET_ID = '1i7InXyujKhQ-QN7BnFKuwALqyBK_X8R4WvkpE0g3BvY';
+  const SHEET_NAME = '表單回應 1';
+
+async function loadList(){
+  const summaryEl = document.getElementById('listSummary');
+  try{
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+    const res = await fetch(url);
+    const text = await res.text();
+    const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+    const rows = json.table.rows || [];
+
+    let totalHouseholds = 0;
+    let totalPeople = 0;
+    rows.forEach(r => {
+      const c = r.c;
+      const unit = c[1] && c[1].v ? c[1].v : '';
+      const people = c[4] && c[4].v ? c[4].v : '';
+      if(!unit) return;
+      totalHouseholds++;
+      totalPeople += Number(people) || 0;
+    });
+
+    summaryEl.innerHTML = `已報名 <b>${totalHouseholds}</b> 戶，共 <b>${totalPeople}</b> 人`;
+  }catch(err){
+    summaryEl.textContent = '人數載入失敗，請確認試算表已設定為公開檢視';
+  }
+}
+
+  loadList();
 </script>
 
 <!--
