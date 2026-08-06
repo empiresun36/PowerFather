@@ -88,6 +88,19 @@
     border-radius:999px;
     box-shadow:0 3px 0 #E8C56B;
   }
+  .notice{
+    max-width:600px;
+    margin:16px auto 0;
+    background:#FFE3E3;
+    border:2px solid #F5A3A3;
+    color:#A13A3A;
+    border-radius:16px;
+    padding:14px 20px;
+    font-size:13.5px;
+    line-height:1.7;
+    text-align:left;
+  }
+  .notice b{color:#C62828;}
 
   .infobar{
     max-width:640px;
@@ -166,6 +179,12 @@
   .quest:nth-child(4) .num{background:var(--berry);}
   .quest .name{font-weight:700; font-size:15px; margin-bottom:6px;}
   .quest .meta{font-size:12px; color:#8A7A5E; line-height:1.6;}
+  .quest .meta a{
+    color:var(--berry);
+    font-weight:700;
+    text-decoration:none;
+  }
+  .quest .meta a:hover{ text-decoration:underline; }
 
   .treat{
     max-width:640px;
@@ -348,12 +367,6 @@
     font-size:12.5px;
     padding-bottom:30px;
   }
-  .quest .meta a{
-    color:var(--berry);
-    font-weight:700;
-    text-decoration:none;
-  }
-. quest .meta a:hover{ text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -369,12 +382,16 @@
   <div class="title"><span class="t1">歡</span><span class="t2">樂</span><span class="t3">老爸</span></div>
   <div class="title2"><span class="t4">同樂</span><span class="t5">日</span></div>
   <div class="tagline">感謝爸爸的陪伴，一起留下美好的回憶！</div>
+  <div class="notice">
+    ⚠️ 因颱風逐漸接近，週末可能受到風雨影響。考量活動爬樓梯溼滑，為確保孩童、家長及工作人員的安全，
+    我們審慎評估後，決定將本次活動<b>延期舉辦</b>，新日期將另行通知，造成不便，敬請見諒。
+  </div>
 </div>
 
 <div class="infobar">
   <div class="info-row">
     <div class="info-dot">📅</div>
-    <div class="info-text"><b>活動日期：8/9（日）下午 2:00</b></div>
+    <div class="info-text"><b><s>活動日期：8/9（日）下午 2:00</s>　<span style="color:#C62828;">延期公告中</span></b></div>
   </div>
   <div class="info-row">
     <div class="info-dot">📍</div>
@@ -397,7 +414,7 @@
     <div class="quest">
       <span class="num">關卡二</span>
       <div class="name">飛輪飆速王</div>
-      <div class="meta">3F 健身房飛輪教室<br>下午 2:30–2:50<br>任務：騎 1 分鐘</div>
+      <div class="meta">3F 健身房飛輪教室<br>下午 2:30–2:50<br>任務：騎 10 分鐘</div>
     </div>
     <div class="quest">
       <span class="num">關卡三</span>
@@ -407,8 +424,8 @@
     <div class="quest">
       <span class="num">關卡四</span>
       <div class="name">英雄爸爸帶動唱</div>
-      <div class="meta">3F 兒童遊戲室<br>下午 3:10–3:30<br>
-        <a href="https://youtu.be/rDstQNzvV2I?si=PZZpkgBpwY8kHdgp" target="_blank" rel="noopener">任務：親子音樂唱跳</a><br>
+      <div class="meta">3F 兒童遊戲室<br>下午 3:10–3:30<br>任務：親子音樂唱跳<br>
+        <a href="https://youtu.be/rDstQNzvV2I?si=PZZpkgBpwY8kHdgp" target="_blank" rel="noopener">▶ 帶動唱音樂連結</a>
       </div>
     </div>
   </div>
@@ -424,30 +441,30 @@
          換成你自己 Google 表單的正式送出網址與欄位 ID
          （取得方式見本檔案最下方註解說明） -->
     <form id="regForm"
-          action="https://docs.google.com/forms/d/e/1FAIpQLSf_pTIEVBtAhQYbe5pLZl0134E7vo6n-T29hHHFIZ1hh8binw/formResponse"
+          action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse"
           method="POST" target="hidden_iframe">
 
       <div class="field">
-        <label>戶號 <span class="hint">例如 B3-37F</span></label>
-        <input type="text" name="entry.307972738" placeholder="B3-37F" required>
+        <label>戶號 <span class="hint">例如 B3-36F</span></label>
+        <input type="text" name="entry.111111111" placeholder="B3-36F" required>
       </div>
 
       <div class="field">
         <label>姓名</label>
-        <input type="text" name="entry.293635776" placeholder="請輸入姓名" required>
+        <input type="text" name="entry.222222222" placeholder="請輸入姓名" required>
       </div>
 
       <div class="field">
         <label>連絡電話</label>
-        <input type="tel" name="entry.902779697" placeholder="09xx-xxx-xxx" required>
+        <input type="tel" name="entry.333333333" placeholder="09xx-xxx-xxx" required>
       </div>
 
       <div class="field">
         <label>家庭成員人數 <span class="hint">含大人與小孩</span></label>
-        <input type="number" name="entry.1905905909" min="1" placeholder="例如 4" required>
+        <input type="number" name="entry.444444444" min="1" placeholder="例如 4" required>
       </div>
 
-      <button type="submit" class="submit-btn">送出報名</button>
+      <button type="submit" class="submit-btn" disabled style="opacity:.5; cursor:not-allowed;">活動延期，暫停報名</button>
     </form>
     <iframe name="hidden_iframe" style="display:none;"></iframe>
   </div>
@@ -487,34 +504,34 @@
   });
 
   // ⚠️ 請填入你的 Google 試算表 ID 與工作表分頁名稱（見檔案最下方註解說明）
-  const SHEET_ID = '1i7InXyujKhQ-QN7BnFKuwALqyBK_X8R4WvkpE0g3BvY';
+  const SHEET_ID = 'YOUR_SHEET_ID';
   const SHEET_NAME = '表單回應 1';
 
-async function loadList(){
-  const summaryEl = document.getElementById('listSummary');
-  try{
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
-    const res = await fetch(url);
-    const text = await res.text();
-    const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
-    const rows = json.table.rows || [];
+  async function loadList(){
+    const summaryEl = document.getElementById('listSummary');
+    try{
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+      const res = await fetch(url);
+      const text = await res.text();
+      const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+      const rows = json.table.rows || [];
 
-    let totalHouseholds = 0;
-    let totalPeople = 0;
-    rows.forEach(r => {
-      const c = r.c;
-      const unit = c[1] && c[1].v ? c[1].v : '';
-      const people = c[4] && c[4].v ? c[4].v : '';
-      if(!unit) return;
-      totalHouseholds++;
-      totalPeople += Number(people) || 0;
-    });
+      let totalHouseholds = 0;
+      let totalPeople = 0;
+      rows.forEach(r => {
+        const c = r.c;
+        const unit = c[1] && c[1].v ? c[1].v : '';
+        const people = c[4] && c[4].v ? c[4].v : '';
+        if(!unit) return;
+        totalHouseholds++;
+        totalPeople += Number(people) || 0;
+      });
 
-    summaryEl.innerHTML = `已報名 <b>${totalHouseholds}</b> 戶，共 <b>${totalPeople}</b> 人`;
-  }catch(err){
-    summaryEl.textContent = '人數載入失敗，請確認試算表已設定為公開檢視';
+      summaryEl.innerHTML = `已報名 <b>${totalHouseholds}</b> 戶，共 <b>${totalPeople}</b> 人`;
+    }catch(err){
+      summaryEl.textContent = '人數載入失敗，請確認試算表已設定為公開檢視';
+    }
   }
-}
 
   loadList();
 </script>
